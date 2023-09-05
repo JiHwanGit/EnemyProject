@@ -127,6 +127,3 @@ void AEnemyAIController::OnTargetDetected(AActor* actor, FAIStimulus const Stimu
 	}
 	UE_LOG(LogTemp, Warning, TEXT("%d"), GetBlackboardComponent()->GetValueAsObject(TargetKey));*/
 }
-
-
-
