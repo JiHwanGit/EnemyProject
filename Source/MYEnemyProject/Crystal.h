@@ -9,7 +9,7 @@
 class UBoxComponent;
 
 UCLASS()
-class MYENEMYPROJECT_API ACrystal : public AActor
+class MYENEMYPROJECT_API ACrystal : public APawn
 {
 	GENERATED_BODY()
 	
@@ -25,5 +25,9 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UStaticMeshComponent* Body;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UBoxComponent* Box;
 };
