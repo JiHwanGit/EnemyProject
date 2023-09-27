@@ -22,6 +22,9 @@ AEnemy::AEnemy()
 	//AI생성 옵션 - 앞으로 생성되는 AEnemy마다 AI를 잡아줌
 	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
 
+	MaxHp = 100;
+	CurHp = 100;
+
 }
 
 // Called when the game starts or when spawned
@@ -42,24 +45,25 @@ void AEnemy::Tick(float DeltaTime)
 void AEnemy::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
 }
 
-void AEnemy::Attack()
+//void AEnemy::OnAttackMontageEnded(UAnimMontage* Montage, bool bInterrupted)
+//{
+//	OnAttackEnd.Broadcast();
+//}
+
+float AEnemy::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
+	if (EventInstigator == nullptr)
+		return 0.0f;
+
+	UpdateHp(DamageAmount * -1);
+
+	return DamageAmount;
 }
 
-void AEnemy::ChangeSpeed(float speed)
+void AEnemy::UpdateHp(float Amount)
 {
-	GetCharacterMovement()->MaxWalkSpeed = speed;
+	CurHp += Amount;
+	CurHp = FMath::Clamp(CurHp, 0.0f, MaxHp);
 }
-
-
-
-void AEnemy::OnAttackMontageEnded(UAnimMontage* Montage, bool bInterrupted)
-{
-	OnAttackEnd.Broadcast();
-}
-
-
-

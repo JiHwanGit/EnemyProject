@@ -28,16 +28,25 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+public:
 
-	void Attack();
+	//FOnAttackEndDelegate OnAttackEnd;
 
-	void ChangeSpeed(float speed);
+	//UFUNCTION(BlueprintCallable, Category = AnimMontage)
+	//void OnAttackMontageEnded(UAnimMontage* Montage, bool bInterrupted);
 
-	FOnAttackEndDelegate OnAttackEnd;
+	//class UCharacterMovementComponent* Movement;
 
-	void OnAttackMontageEnded(UAnimMontage* Montage, bool bInterrupted);
+//데미지 관련
+public:
 
+	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent,
+	class AController* EventInstigator, AActor* DamageCauser) override;
 
-	class UCharacterMovementComponent* Movement;
+	void UpdateHp(float Amount);
+
+public:
+	float CurHp;
+	float MaxHp;
 
 };

@@ -3,18 +3,16 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
+#include "GameFramework/Pawn.h"
 #include "Crystal.generated.h"
-
-class UBoxComponent;
 
 UCLASS()
 class MYENEMYPROJECT_API ACrystal : public APawn
 {
 	GENERATED_BODY()
-	
-public:	
-	// Sets default values for this actor's properties
+
+public:
+	// Sets default values for this pawn's properties
 	ACrystal();
 
 protected:
@@ -25,9 +23,22 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	// Called to bind functionality to input
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+//뷰포트 관련
+public:
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UStaticMeshComponent* Body;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UBoxComponent* Box;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	class UBoxComponent* Box;
+
+
+//데미지 관련 로직
+public:
+	virtual float TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
+
+
 };
